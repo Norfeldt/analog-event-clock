@@ -116,19 +116,6 @@ const Clock = () => {
           strokeWidth={20}
           strokeLinecap="round"
         />
-        <text
-          x={cx + Math.sin((hourHandRotation * Math.PI) / 180) * hourHandLength}
-          y={cy - Math.cos((hourHandRotation * Math.PI) / 180) * hourHandLength}
-          dominantBaseline="middle"
-          fontSize={fontSize * 2}
-          strokeWidth={20}
-          strokeLinecap="round"
-          transform={`rotate(${hourHandRotation} ${
-            cx * 1.05 + Math.sin((hourHandRotation * Math.PI) / 180) * hourHandLength
-          } ${cy * 0.94 - Math.cos((hourHandRotation * Math.PI) / 180) * hourHandLength})`}>
-          👆
-        </text>
-
         <line
           x1={cx}
           y1={cy}
