@@ -1,11 +1,16 @@
 import * as React from 'react'
 
 const times = [
-  { time: '19:00', label: '🛏️' },
-  { time: '08:00', label: '🥣☕️' },
+  { time: '07:00', label: '🧦🛏️' },
+  { time: '07:20', label: '🥣' },
+  { time: '08:00', label: '👩‍🏫' },
+  { time: '08:30', label: '🥾' },
+  { time: '08:50', label: '🚸' },
   { time: '09:30', label: '🍎' },
   { time: '11:00', label: '🍲' },
-  { time: '14:00', label: '🥗' },
+  { time: '14:00', label: '🍐' },
+  { time: '15:00', label: '🚸' },
+  { time: '15:30', label: '👩‍🏫' },
   { time: '17:00', label: '🧆' },
   { time: '19:00', label: '🛌' },
 ]
