@@ -42,95 +42,98 @@ const Clock = () => {
 
   return (
     <svg width={diameter} height={diameter}>
-      <>
-        <circle cx={cx} cy={cy} r={radius} fill="#fff" stroke="#000" />
-        {[...Array(12)].map((_, i) => {
-          const clockHour = i + 1
-          const angle = (i + 1) * (Math.PI / 6)
-          const distance = radius * 0.8
+      <circle cx={cx} cy={cy} r={radius} fill="#fff" stroke="#000" />
+      {[...Array(12)].map((_, i) => {
+        const clockHour = i + 1
+        const angle = (i + 1) * (Math.PI / 6)
+        const distance = radius * 0.8
 
-          return (
-            <>
-              <line
-                x1={cx}
-                y1={cy}
-                x2={cx + Math.sin(angle) * distance}
-                y2={cy - Math.cos(angle) * distance}
-                stroke="gray"
-                strokeDasharray={i % 3 === 2 ? '0' : '10, 10'}
-                strokeWidth={i % 3 === 2 ? 3 : 1}
-                strokeLinecap="round"
-              />
-              <text
-                x={cx + Math.sin(angle) * (radius - fontSize)}
-                y={cy - Math.cos(angle) * (radius - fontSize)}
-                dominantBaseline="middle"
-                textAnchor="middle"
-                fontSize={clockNumber === clockHour ? fontSize * 2.5 : fontSize}
-                fill={clockNumber === clockHour ? '#000080' : '#b0b0b0'}
-                fontFamily="Courier New, Courier, monospace"
-                fontWeight="bold">
-                {clockHour}
-              </text>
-            </>
-          )
-        })}
-
-        {times.reduce((acc, { time: eventTime, label }) => {
-          const [hour, minute] = eventTime.split(':').map(Number)
-          const hoursSince = time.getHours() - hour
-          if (hoursSince > 2) {
-            return acc
-          }
-
-          const angle = ((hour % 12) * 30 + minute * 0.5) * (Math.PI / 180)
-          const factor = 0.8
-
-          return [
-            acc,
+        return (
+          <>
+            <line
+              x1={cx}
+              y1={cy}
+              x2={cx + Math.sin(angle) * distance}
+              y2={cy - Math.cos(angle) * distance}
+              stroke="gray"
+              strokeDasharray={i % 3 === 2 ? '0' : '10, 10'}
+              strokeWidth={i % 3 === 2 ? 3 : 1}
+              strokeLinecap="round"
+            />
             <text
-              x={cx + Math.sin(angle) * (radius - fontSize) * factor}
-              y={cy - Math.cos(angle) * (radius - fontSize) * factor}
+              x={cx + Math.sin(angle) * (radius - fontSize)}
+              y={cy - Math.cos(angle) * (radius - fontSize)}
               dominantBaseline="middle"
               textAnchor="middle"
-              fontSize={fontSize * 2}
-              fill="lime"
-              fontFamily="Courier New, Courier, monospace"
-              fontWeight="bold">
-              {label}
-            </text>,
-          ]
-        }, [] as any)}
+              style={{
+                fontSize: clockNumber === clockHour ? '4rem' : '2.5rem',
+                fill:
+                  clockNumber === clockHour
+                    ? 'rgba(0, 0, 128, 1)'
+                    : clockNumber === clockHour - 1
+                    ? 'rgba(0, 0, 128, 0.5)'
+                    : '#b0b0b0',
+                fontFamily: 'Courier New, Courier, monospace',
+                fontWeight: 'bold',
+              }}>
+              {clockHour}
+            </text>
+          </>
+        )
+      })}
 
-        <line
-          x1={cx}
-          y1={cy}
-          x2={cx + Math.sin((minuteHandRotation * Math.PI) / 180) * minuteHandLength}
-          y2={cy - Math.cos((minuteHandRotation * Math.PI) / 180) * minuteHandLength}
-          stroke="#40E0D0"
-          strokeWidth={20}
-          strokeLinecap="round"
-        />
+      {times.reduce((acc, { time: eventTime, label }) => {
+        const [hour, minute] = eventTime.split(':').map(Number)
+        const hoursSince = time.getHours() - hour
+        if (hoursSince > 2) {
+          return acc
+        }
 
-        <line
-          x1={cx}
-          y1={cy}
-          x2={cx + Math.sin((hourHandRotation * Math.PI) / 180) * hourHandLength}
-          y2={cy - Math.cos((hourHandRotation * Math.PI) / 180) * hourHandLength}
-          stroke="#000080"
-          strokeWidth={20}
-          strokeLinecap="round"
-        />
-        <line
-          x1={cx}
-          y1={cy}
-          x2={cx + Math.sin((secondHandRotation * Math.PI) / 180) * secondHandLength}
-          y2={cy - Math.cos((secondHandRotation * Math.PI) / 180) * secondHandLength}
-          stroke="#f00"
-          strokeWidth={3}
-          strokeLinecap="round"
-        />
-      </>
+        const angle = ((hour % 12) * 30 + minute * 0.5) * (Math.PI / 180)
+        const factor = 0.8
+
+        return [
+          acc,
+          <text
+            x={cx + Math.sin(angle) * (radius - fontSize) * factor}
+            y={cy - Math.cos(angle) * (radius - fontSize) * factor}
+            dominantBaseline="middle"
+            textAnchor="middle"
+            fill="lime"
+            style={{ fontSize: '6.5rem' }}>
+            {label}
+          </text>,
+        ]
+      }, [] as any)}
+
+      <line
+        x1={cx}
+        y1={cy}
+        x2={cx + Math.sin((minuteHandRotation * Math.PI) / 180) * minuteHandLength}
+        y2={cy - Math.cos((minuteHandRotation * Math.PI) / 180) * minuteHandLength}
+        stroke="#40E0D0"
+        strokeWidth={20}
+        strokeLinecap="round"
+      />
+
+      <line
+        x1={cx}
+        y1={cy}
+        x2={cx + Math.sin((hourHandRotation * Math.PI) / 180) * hourHandLength}
+        y2={cy - Math.cos((hourHandRotation * Math.PI) / 180) * hourHandLength}
+        stroke="#000080"
+        strokeWidth={20}
+        strokeLinecap="round"
+      />
+      <line
+        x1={cx}
+        y1={cy}
+        x2={cx + Math.sin((secondHandRotation * Math.PI) / 180) * secondHandLength}
+        y2={cy - Math.cos((secondHandRotation * Math.PI) / 180) * secondHandLength}
+        stroke="#f00"
+        strokeWidth={3}
+        strokeLinecap="round"
+      />
     </svg>
   )
 }
